@@ -15,7 +15,7 @@ public class Estabelecimento implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    private String  codigoRestaurante;
+    private String codigoRestaurante;
     private String restaurant;
     private String addressCity;
     private String longitude;
