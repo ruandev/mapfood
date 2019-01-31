@@ -1,13 +1,11 @@
 package br.com.mapfood;
 
 import br.com.mapfood.Service.ClienteService;
-
+import br.com.mapfood.Service.EstabelecimentoService;
 import br.com.mapfood.Service.MotoboyService;
-import br.com.mapfood.domain.Estabelecimento;
+import br.com.mapfood.Service.ProdutosEstabelecimentoService;
 import br.com.mapfood.domain.Motoboy;
 import br.com.mapfood.domain.ProdutosEstabelecimento;
-import br.com.mapfood.repository.ClienteRepository;
-import br.com.mapfood.repository.EstabelecimentoRepository;
 import br.com.mapfood.repository.MotoboyRepository;
 import br.com.mapfood.repository.ProdutosEstabelecimentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,7 @@ public class MapfoodApplication implements CommandLineRunner {
 	private ClienteService clienteService;
 
 	@Autowired
-	private EstabelecimentoRepository estabelecimentoRepository;
+	private EstabelecimentoService estabelecimentoService;
 
 	@Autowired
 	private MotoboyRepository motoboyRepository;
@@ -41,15 +39,9 @@ public class MapfoodApplication implements CommandLineRunner {
 
 		estabelecimentoService.processarFileEstabelecimento();
 
-		Estabelecimento r1 =new Estabelecimento(1L,"5640f4538237d9c4aaf3b751c4d11769b3fc1e3165ed3b912c508768f7fc15fdl",
-				"Monteiro's Lanches","SAO PAULO", "-46.640973","-23.603658","Lanches");
-		Estabelecimento r2 =new Estabelecimento(2L,"a660f6374ab1a743468f576cb89e3a8cd9b9776a363ada7002a5db6066a8b572",
-				"True Food",
-						"SAO PAULO","-46.657908","-23.554423","Comida Saudavel");
-		Estabelecimento r3=	new Estabelecimento(3L,"07fc65555705243de378cc34222909fe9f44ad055b855ec8b7b9b8df86d70874",
-				"Red Galeteria","SAO PAULO","-46.688782","-23.600529","Comida Variada");
+		motoboyService.processarFileMotoboy();
 
-		estabelecimentoRepository.saveAll(Arrays.asList(r1,r2,r3));
+		produtosEstabelecimentoService.processarFileProdutosEstabelecimento();
 
 
 		Motoboy m1 = new Motoboy(1l,"-51.216203","-30.07518676");
