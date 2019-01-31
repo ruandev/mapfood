@@ -1,19 +1,21 @@
 package br.com.mapfood.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "produtos_estabelecimento")
+@Builder
+@Entity
+@Table(name = "produtos_estabelecimento")
 public class ProdutosEstabelecimento implements Serializable {
 
     private static final long serialVersionUID = 1L;
