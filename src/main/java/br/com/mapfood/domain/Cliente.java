@@ -1,9 +1,6 @@
 package br.com.mapfood.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -14,8 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Data
+@Builder
+@NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "cliente")
+@Entity
 public class Cliente  implements Serializable {
 
     private static final long serialVersionUID = 1L;

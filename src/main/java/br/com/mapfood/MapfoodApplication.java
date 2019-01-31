@@ -1,8 +1,8 @@
 package br.com.mapfood;
 
-import java.util.Arrays;
+import br.com.mapfood.Service.ClienteService;
 
-import br.com.mapfood.domain.Cliente;
+import br.com.mapfood.Service.MotoboyService;
 import br.com.mapfood.domain.Estabelecimento;
 import br.com.mapfood.domain.Motoboy;
 import br.com.mapfood.domain.ProdutosEstabelecimento;
@@ -19,7 +19,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class MapfoodApplication implements CommandLineRunner {
 
 	@Autowired
-	private ClienteRepository clienteRepository;
+	private ClienteService clienteService;
 
 	@Autowired
 	private EstabelecimentoRepository estabelecimentoRepository;
@@ -37,10 +37,9 @@ public class MapfoodApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Cliente c1 = new Cliente(1l,"-51.228496", "-30.03742831");
-        Cliente c2 = new Cliente(2l,"-51.136677", "-30.07824631");
+		clienteService.processarFileCliente();
 
-        clienteRepository.saveAll(Arrays.asList(c1,c2));
+		estabelecimentoService.processarFileEstabelecimento();
 
 		Estabelecimento r1 =new Estabelecimento(1L,"5640f4538237d9c4aaf3b751c4d11769b3fc1e3165ed3b912c508768f7fc15fdl",
 				"Monteiro's Lanches","SAO PAULO", "-46.640973","-23.603658","Lanches");
