@@ -1,6 +1,7 @@
 package br.com.mapfood.domain;
 
 import java.io.Serializable;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -16,43 +17,51 @@ public class Cliente  implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    private String Longitude;
+    private String longitude;
 
-    private String Latitude;
+    private String latitude;
 
     public Cliente() {
     }
 
-    public Cliente(Long id, String longitude, String latitude) {
-        this.id = id;
-        this.Longitude = longitude;
-        this.Latitude = latitude;
+    public Cliente (Map<String, String> row){
+        this.id = row.get("id");
+        this.longitude = row.get("Longitude");
+        this.latitude = row.get("Latitude");
+
     }
 
-    public Long getId() {
+//    public Cliente(Long id, String longitude, String latitude) {
+//        this.id = id;
+//        this.Longitude = longitude;
+//        this.Latitude = latitude;
+//    }
+
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
     public String getLongitude() {
-        return Longitude;
+        return longitude;
     }
 
     public void setLongitude(String longitude) {
-        Longitude = longitude;
+        this.longitude = longitude;
     }
 
     public String getLatitude() {
-        return Latitude;
+        return latitude;
     }
 
     public void setLatitude(String latitude) {
-        Latitude = latitude;
+        this.latitude = latitude;
     }
 
     @Override
@@ -66,5 +75,15 @@ public class Cliente  implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+
+    @Override
+    public String toString() {
+        return "Cliente { "
+                + " id: '" + id + '\''
+                + ", longitude: '" + longitude + '\''
+                + ", latitude: '" + latitude + '\''
+                + " }";
     }
 }

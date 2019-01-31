@@ -18,7 +18,7 @@ public class MotoboyService {
         return motoboyRepository.findAll();
     }
 
-    public Motoboy findById(Long id) {
+    public Motoboy findById(String id) {
         Optional<Motoboy> obj = motoboyRepository.findById(id);
         return obj.orElse(null);
     }

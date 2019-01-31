@@ -29,4 +29,15 @@ dependencies {
 	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//dependencies google maps api matrix
+	compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.11.0'
+	compile group: 'com.squareup.okio', name: 'okio', version: '1.13.0'
+	compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+	compile group: 'com.google.api-client', name: 'google-api-client', version: '1.23.0'
+	
+	
+	//Dependencias para ler csv
+	compile group: 'org.apache.commons', name: 'commons-csv', version: '1.6'
+	compile group: 'com.opencsv', name: 'opencsv', version: '3.8'
 }

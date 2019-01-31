@@ -1,7 +1,7 @@
 package br.com.mapfood.domain;
 
 import java.io.Serializable;
-import java.util.Objects;
+import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,55 +16,57 @@ public class Motoboy implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    private String Longitude;
+    private String longitude;
 
-    private String Latitude;
+    private String latitude;
 
     public Motoboy() {
     }
 
-    public Motoboy(Long id, String longitude, String latitude) {
-        this.id = id;
-        this.Longitude = longitude;
-        this.Latitude = latitude;
+//    public Motoboy(Long id, String longitude, String latitude) {
+//        this.id = id;
+//        this.Longitude = longitude;
+//        this.Latitude = latitude;
+//    }
+
+    public Motoboy(Map<String, String> row) {
+        this.id = row.get("id");
+        this.longitude = row.get("Longitude");
+        this.latitude = row.get("Latitude");
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
     public String getLongitude() {
-        return Longitude;
+        return longitude;
     }
 
     public void setLongitude(String longitude) {
-        Longitude = longitude;
+        this.longitude = longitude;
     }
 
     public String getLatitude() {
-        return Latitude;
+        return latitude;
     }
 
     public void setLatitude(String latitude) {
-        Latitude = latitude;
+        this.latitude = latitude;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Motoboy cliente = (Motoboy) o;
-        return Objects.equals(id, cliente.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public String toString() {
+        return "Motoboy { "
+                + " id: " + id
+                + ", longitude: '" + longitude + '\''
+                + ", latitude: '" + latitude + '\''
+                + " }";
     }
 }

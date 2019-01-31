@@ -18,7 +18,7 @@ public class ClienteService {
         return clienteRepository.findAll();
     }
 
-    public Cliente findById(Long id) {
+    public Cliente findById(String id) {
         Optional<Cliente> obj = clienteRepository.findById(id);
         return obj.orElse(null);
     }

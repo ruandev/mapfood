@@ -6,9 +6,9 @@ import java.util.Optional;
 import br.com.mapfood.domain.Estabelecimento;
 import br.com.mapfood.repository.EstabelecimentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class EstabelecimentoService {
 
     @Autowired
