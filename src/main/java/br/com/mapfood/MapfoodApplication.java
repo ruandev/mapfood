@@ -6,7 +6,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import br.com.mapfood.ApiMatrixGoogleMaps.FindRotasAndTimeAPI;
+import br.com.mapfood.ApiMatrixGoogleMaps.ObJectRotas;
 import br.com.mapfood.RecordCSV.LerCSV;
+import br.com.mapfood.Service.ClienteService;
+import br.com.mapfood.Service.MotoboyService;
 import br.com.mapfood.domain.Cliente;
 import br.com.mapfood.domain.Motoboy;
 import br.com.mapfood.repository.ClienteRepository;
@@ -24,6 +28,12 @@ public class MapfoodApplication implements CommandLineRunner {
 	private ClienteRepository clienteRepository;
 
 	@Autowired
+    private ClienteService clienteService;
+
+    @Autowired
+    private MotoboyService motoboyService;
+
+	@Autowired
 	private MotoboyRepository motoboyRepository;
 
 	public static void main(String[] args) {
@@ -33,8 +43,9 @@ public class MapfoodApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-
-//		 Salvando Motoboys no banco de dados
+/***
+ * Salvando Motoboys no banco de dados
+ */
 		System.out.println("----- SALVANDO MOTOBOYS -----");
 		LerCSV lerCSVMotoboy = new LerCSV();
 		List<Motoboy> listMotoboys = new ArrayList<>();
@@ -57,6 +68,27 @@ public class MapfoodApplication implements CommandLineRunner {
 		clienteRepository.saveAll(listClientes);
 
 
-	}
+            FindRotasAndTimeAPI findRotasAndTimeAPI = new FindRotasAndTimeAPI();
+
+            // Liste as coordenadas de latitude antes das coordenadas de longitude.
+
+            //Implementar a primeiro a busca por id e retornar a latitude e longitude e passar elas como parametro
+
+            //Buscando no repotorio das coordenadas do cliente
+             Cliente cliente =  clienteService.findById("1");
+             String CORDENADAS_TESTE_ORIGEM = cliente.getLatitude() +","+ cliente.getLongitude();
+
+            //Buscando no repositorio das coordenadas do motoboy
+            Motoboy motoboy =  motoboyService.findById("1");
+            String CORDENADAS_TESTE_DESTINO = motoboy.getLatitude() +","+ motoboy.getLongitude();
+
+            ObJectRotas testeRotaUM = new ObJectRotas();
+            testeRotaUM = findRotasAndTimeAPI.Api(CORDENADAS_TESTE_ORIGEM, CORDENADAS_TESTE_DESTINO);
+
+            System.out.println(testeRotaUM);
+
+
+
+    }
 }
 
