@@ -37,4 +37,8 @@ dependencies {
 	compile group: 'com.squareup.okio', name: 'okio', version: '1.13.0'
 	compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 	compile group: 'com.google.api-client', name: 'google-api-client', version: '1.23.0'
+
+	//swagger
+	compile('io.springfox:springfox-swagger2:2.8.0')
+	compile('io.springfox:springfox-swagger-ui:2.8.0')
 }
