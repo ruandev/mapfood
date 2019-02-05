@@ -22,14 +22,14 @@ public class ProdutosEstabelecimentoResource {
     @ApiOperation(value = "Listar todos os produtos por estabelecimento")
     @GetMapping
     public ResponseEntity<List<ProdutosEstabelecimento>> listar(){
-        List<ProdutosEstabelecimento> produtosEstabelecimentos= produtosEstabelecimentoService.findAll();
+        List<ProdutosEstabelecimento> produtosEstabelecimentos = produtosEstabelecimentoService.findAll();
         return ResponseEntity.ok().body(produtosEstabelecimentos);
     }
 
     @ApiOperation(value = "Buscar produto do estabelecimento pelo id")
     @GetMapping(value="/{id}")
     public ResponseEntity<ProdutosEstabelecimento> findById(@PathVariable Long id){
-        ProdutosEstabelecimento produtosEstabelecimento= produtosEstabelecimentoService.findById(id);
+        ProdutosEstabelecimento produtosEstabelecimento = produtosEstabelecimentoService.findById(id);
         return ResponseEntity.ok().body(produtosEstabelecimento);
     }
 

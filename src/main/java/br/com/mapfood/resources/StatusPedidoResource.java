@@ -2,6 +2,7 @@ package br.com.mapfood.resources;
 
 import br.com.mapfood.domain.Cliente;
 import br.com.mapfood.domain.Pedido;
+import br.com.mapfood.domain.enums.EstadoDoPedido;
 import br.com.mapfood.service.ClienteService;
 import br.com.mapfood.service.EstabelecimentoService;
 import br.com.mapfood.service.PedidoService;
@@ -28,9 +29,10 @@ public class StatusPedidoResource {
 
     @ApiOperation(value = "Atualizar status do pedido")
     @PutMapping(value = "/{idPedido}/atualizar/{status}")
-    public List<Pedido> atualizarStatusPedido(@PathVariable("idPedido") Long idPedido,
+    public ResponseEntity<?> atualizarStatusPedido(@PathVariable("idPedido") Long idPedido,
                                                       @RequestParam String status){
-        return null;
+        pedidoService.atualizarStatus(idPedido, status);
+        return ResponseEntity.ok().build();
     }
 
     @ApiOperation(value = "Buscar status do Pedido")
@@ -38,8 +40,6 @@ public class StatusPedidoResource {
     public ResponseEntity<Optional<Pedido>> localizarStatusPorPedido(@PathVariable("idPedido") Long idPedido){
 
         return pedidoService.statusPedido(idPedido);
-
-        //return null;
     }
 
     @ApiOperation(value = "Buscar status do Pedido por Cliente")
@@ -47,7 +47,6 @@ public class StatusPedidoResource {
     public ResponseEntity<Optional<Pedido>> localizarStatusPedidoPorCliente(@PathVariable("idCliente") Long idCliente){
 
        return pedidoService.pedidoPorCliente(idCliente);
-
     }
 
     @ApiOperation(value = "Listar todos os pedidos por status")
@@ -56,7 +55,6 @@ public class StatusPedidoResource {
 
         return pedidoService.findAll();
 
-      //  return null;
     }
 
     @ApiOperation(value = "Listar todos os pedidos com status aceito")

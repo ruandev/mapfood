@@ -1,6 +1,7 @@
 package br.com.mapfood.service;
 
 import br.com.mapfood.domain.Pedido;
+import br.com.mapfood.domain.enums.EstadoDoPedido;
 import br.com.mapfood.processors.PedidoProcessor;
 import br.com.mapfood.repository.ItemDoPedidoRepository;
 import br.com.mapfood.repository.MotoboyRepository;
@@ -45,6 +46,11 @@ public class PedidoService {
             return obj.orElse(null);
     }
 
+    public Pedido findByIdOrderByStatus(Long id) {
+        Optional<Pedido> obj = pedidoRepository.findByIdOrderByStatusPedido(id);
+        return obj.orElse(null);
+    }
+
     public void validaPedido(Pedido pedido) {
 
     }
@@ -61,5 +67,10 @@ public class PedidoService {
         //return null;
     }
 
+    public void atualizarStatus(Long idPedido, String status) {
+        Pedido pedido = pedidoRepository.findById(idPedido).get();
+        pedido.setStatusPedido(EstadoDoPedido.valueOf(status));
+        pedidoRepository.save(pedido);
+    }
 }
 
