@@ -64,13 +64,7 @@ public class PedidoService {
     public ResponseEntity<Optional<Pedido>> pedidoPorCliente(Long idCliente){
         Optional<Pedido> cliente = pedidoRepository.findByIdCliente(idCliente);
         return ResponseEntity.ok().body(cliente);
-        //return null;
     }
 
-    public void atualizarStatus(Long idPedido, String status) {
-        Pedido pedido = pedidoRepository.findById(idPedido).get();
-        pedido.setStatusPedido(EstadoDoPedido.valueOf(status));
-        pedidoRepository.save(pedido);
-    }
 }
 

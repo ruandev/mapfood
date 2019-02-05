@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,9 @@ public class Pedido {
     private Long idCliente;
     private Long idEstabelecimento;
     private Long idMotoboy;
+
+    //private Long distanciaKm;
+    //private Time tempo;
 
     private EstadoDoPedido statusPedido;
 

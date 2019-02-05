@@ -27,6 +27,8 @@ public class Motoboy implements Serializable {
     private Long id;
 
     private String longitude;
-
     private String latitude;
+
+    //private Long distanciaKm;
+    //private Time tempo;
 }

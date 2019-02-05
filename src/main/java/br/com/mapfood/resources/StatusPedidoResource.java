@@ -29,10 +29,9 @@ public class StatusPedidoResource {
 
     @ApiOperation(value = "Atualizar status do pedido")
     @PutMapping(value = "/{idPedido}/atualizar/{status}")
-    public ResponseEntity<?> atualizarStatusPedido(@PathVariable("idPedido") Long idPedido,
-                                                      @RequestParam String status){
-        pedidoService.atualizarStatus(idPedido, status);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<?> atualizarStatusPedido(){
+
+        return null;
     }
 
     @ApiOperation(value = "Buscar status do Pedido")
@@ -92,37 +91,41 @@ public class StatusPedidoResource {
     @GetMapping(value = "/restaurante/{idRestaurante}")
     public List<Pedido> listarPorRestaurante(@PathVariable("idRestaurante") Long idRestaurante){
 
-
         return null;
     }
 
     @ApiOperation(value = "Listar todos os pedidos com status aceito por restaurante")
     @GetMapping(value = "/restaurante/{idRestaurante}/aceito")
     public List<Pedido> listarPedidosStatusAceitoPorRestaurante(@PathVariable("idRestaurante") Long idRestaurante){
+
         return null;
     }
 
     @ApiOperation(value = "Listar todos os pedidos com status preparando por restaurante")
     @GetMapping(value = "/restaurante/{idRestaurante}/preparando")
     public List<Pedido> listarPedidosStatusPreparandoPorRestaurante(@PathVariable("idRestaurante") Long idRestaurante){
+
         return null;
     }
 
     @ApiOperation(value = "Listar todos os pedidos com status pronto por restaurante")
     @GetMapping(value = "/restaurante/{idRestaurante}/pronto")
     public List<Pedido> listarPedidosStatusProntoPorRestaurante(@PathVariable("idRestaurante") Long idRestaurante){
+
         return null;
     }
 
     @ApiOperation(value = "Listar todos os pedidos com status em deslocamento por restaurante")
     @GetMapping(value = "/restaurante/{idRestaurante}/em-deslocamento")
     public List<Pedido> listarPedidosStatusEmDeslocamentoPorRestaurante(@PathVariable("idRestaurante") Long idRestaurante){
+
         return null;
     }
 
     @ApiOperation(value = "Listar todos os pedidos com status entregue por restaurante")
     @GetMapping(value = "/restaurante/{idRestaurante}/entregue")
     public List<Pedido> listarPedidosStatusEntreguePorRestaurante(@PathVariable("idRestaurante") Long idRestaurante){
+
         return null;
     }
 }
