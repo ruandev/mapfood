@@ -53,8 +53,7 @@ public class StatusPedidoResource {
     @GetMapping
     public List<Pedido> listar(){
 
-        return pedidoService.findAll();
-
+        return pedidoService.findAllOrderByStatus();
     }
 
     @ApiOperation(value = "Listar todos os pedidos com status aceito")

@@ -46,9 +46,9 @@ public class PedidoService {
             return obj.orElse(null);
     }
 
-    public Pedido findByIdOrderByStatus(Long id) {
-        Optional<Pedido> obj = pedidoRepository.findByIdOrderByStatusPedido(id);
-        return obj.orElse(null);
+    public List<Pedido> findAllOrderByStatus() {
+        List<Pedido> pedidos = pedidoRepository.findAllByOrderByPedido();
+        return pedidos;
     }
 
     public void validaPedido(Pedido pedido) {
