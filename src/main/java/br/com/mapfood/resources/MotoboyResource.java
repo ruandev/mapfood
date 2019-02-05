@@ -2,7 +2,7 @@ package br.com.mapfood.resources;
 
 import java.util.List;
 
-import br.com.mapfood.Service.MotoboyService;
+import br.com.mapfood.service.MotoboyService;
 import br.com.mapfood.domain.Motoboy;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +19,14 @@ public class MotoboyResource {
     @Autowired
     private MotoboyService motoboyService;
 
-    @ApiOperation(value = "Lista todos os motoboys")
+    @ApiOperation(value = "Listar todos os motoboys")
     @GetMapping
     public ResponseEntity<List<Motoboy>> listar(){
         List<Motoboy> motoboys = motoboyService.findAll();
         return ResponseEntity.ok().body(motoboys);
     }
 
-    @ApiOperation(value = "Busca motoboy pelo id")
+    @ApiOperation(value = "Buscar motoboy pelo id")
     @GetMapping(value="/{id}")
     public ResponseEntity<Motoboy> findById(@PathVariable Long id){
         Motoboy motoboy = motoboyService.findById(id);

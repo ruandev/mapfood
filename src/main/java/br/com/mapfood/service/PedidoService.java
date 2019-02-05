@@ -1,4 +1,4 @@
-package br.com.mapfood.Service;
+package br.com.mapfood.service;
 
 import br.com.mapfood.domain.Pedido;
 import br.com.mapfood.processors.PedidoProcessor;
@@ -53,6 +53,12 @@ public class PedidoService {
         Optional<Pedido> statusPedido = pedidoRepository.findById(idPedido);
 
         return ResponseEntity.ok().body(statusPedido);
+    }
+
+    public ResponseEntity<Optional<Pedido>> pedidoPorCliente(Long idCliente){
+        Optional<Pedido> cliente = pedidoRepository.findByIdCliente(idCliente);
+        return ResponseEntity.ok().body(cliente);
+        //return null;
     }
 
 }

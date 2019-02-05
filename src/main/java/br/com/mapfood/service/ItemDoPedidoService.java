@@ -1,4 +1,4 @@
-package br.com.mapfood.Service;
+package br.com.mapfood.service;
 
 public class ItemDoPedidoService {
 }

@@ -2,7 +2,7 @@ package br.com.mapfood.resources;
 
 import java.util.List;
 
-import br.com.mapfood.Service.EstabelecimentoService;
+import br.com.mapfood.service.EstabelecimentoService;
 import br.com.mapfood.domain.Estabelecimento;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +19,14 @@ public class EstabelecimentoResource {
     @Autowired
     private EstabelecimentoService estabelecimentoService;
 
-    @ApiOperation(value = "Lista todos os estabelecimentos")
+    @ApiOperation(value = "Listar todos os estabelecimentos")
     @GetMapping
     public ResponseEntity<List<Estabelecimento>> listar(){
         List<Estabelecimento> estabelecimentos = estabelecimentoService.findAll();
         return ResponseEntity.ok().body(estabelecimentos);
     }
 
-    @ApiOperation(value = "Busca estabelecimento pelo id")
+    @ApiOperation(value = "Buscar estabelecimento pelo id")
     @GetMapping(value="/{id}")
     public ResponseEntity<Estabelecimento> findById(@PathVariable Long id){
         Estabelecimento estabelecimento= estabelecimentoService.findById(id);

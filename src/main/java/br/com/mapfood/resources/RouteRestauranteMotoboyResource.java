@@ -1,11 +1,9 @@
 package br.com.mapfood.resources;
 
 import br.com.mapfood.APIMaps.ObJectRotas;
-import br.com.mapfood.Service.ClienteService;
-import br.com.mapfood.Service.EstabelecimentoService;
-import br.com.mapfood.Service.FindRoutesAndTimeService;
-import br.com.mapfood.Service.MotoboyService;
-import br.com.mapfood.domain.Cliente;
+import br.com.mapfood.service.EstabelecimentoService;
+import br.com.mapfood.service.FindRoutesAndTimeService;
+import br.com.mapfood.service.MotoboyService;
 import br.com.mapfood.domain.Estabelecimento;
 import br.com.mapfood.domain.Motoboy;
 import io.swagger.annotations.ApiOperation;

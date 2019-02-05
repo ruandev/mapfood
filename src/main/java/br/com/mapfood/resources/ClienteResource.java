@@ -2,7 +2,7 @@ package br.com.mapfood.resources;
 
 import java.util.List;
 
-import br.com.mapfood.Service.ClienteService;
+import br.com.mapfood.service.ClienteService;
 import br.com.mapfood.domain.Cliente;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +19,14 @@ public class ClienteResource {
     @Autowired
     private ClienteService clienteService;
 
-    @ApiOperation(value = "Lista todos os clientes")
+    @ApiOperation(value = "Listar todos os clientes")
     @GetMapping
     public ResponseEntity<List<Cliente>> listar(){
         List<Cliente> clientes = clienteService.findAll();
         return ResponseEntity.ok().body(clientes);
     }
 
-    @ApiOperation(value = "Encontra cliente pelo id")
+    @ApiOperation(value = "Buscar cliente pelo id")
     @GetMapping(value="/{id}")
     public ResponseEntity<Cliente> findById(@PathVariable Long id){
         Cliente cliente = clienteService.findById(id);
