@@ -47,7 +47,7 @@ public class PedidoService {
     }
 
     public List<Pedido> findAllOrderByStatus() {
-        List<Pedido> pedidos = pedidoRepository.findAllByOrderByPedido();
+        List<Pedido> pedidos = pedidoRepository.findAllByOrderByStatusPedido();
         return pedidos;
     }
 

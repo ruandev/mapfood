@@ -12,10 +12,10 @@ import java.util.List;
 public class PedidoProcessor {
 
     public List<Pedido> criarPedidos(){
-        List<ItemDoPedido> itens1 = new ArrayList<ItemDoPedido>();
-        List<ItemDoPedido> itens2 = new ArrayList<ItemDoPedido>();
-        List<ItemDoPedido> itens3 = new ArrayList<ItemDoPedido>();
-        List<ItemDoPedido> itens4 = new ArrayList<ItemDoPedido>();
+        List<ItemDoPedido> itens1 = new ArrayList<>();
+        List<ItemDoPedido> itens2 = new ArrayList<>();
+        List<ItemDoPedido> itens3 = new ArrayList<>();
+        List<ItemDoPedido> itens4 = new ArrayList<>();
 
         // idPedido, idCliente, idEstabelecimento, idMotoboy, Status, itens
         Pedido p1=new Pedido(

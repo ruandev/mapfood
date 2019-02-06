@@ -20,7 +20,7 @@ public class CompararProdutoEstabelecimento {
     EstabelecimentoRepository repoEstabelecimento;
 
     public List<ProdutosEstabelecimento> compara(){
-        List<ProdutosEstabelecimento> listProduto = new ArrayList<>();
+        List<ProdutosEstabelecimento> listProduto;
         List<ProdutosEstabelecimento> novoListProduto = new ArrayList<>();
 
         listProduto = repoProduto.findAll();

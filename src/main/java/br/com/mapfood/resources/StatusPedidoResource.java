@@ -41,28 +41,6 @@ public class StatusPedidoResource {
         return pedidoService.statusPedido(idPedido);
     }
 
-    @ApiOperation(value = "Listar todos os pedidos por ordem de status")
-    @GetMapping
-    public List<Pedido> listar(){
-
-        return pedidoService.findAllOrderByStatus();
-    }
-
-    @ApiOperation(value = "Listar todos os pedidos de cada status")
-    @GetMapping(value = "/status/{status}")
-    public List<Pedido> listarPedidosDeCadaStatus(@PathVariable("status") String status){
-        return null;
-    }
-
-
-    //Por Restaurante:
-
-    @ApiOperation(value = "Listar todos os pedidos por ordem de status por restaurante")
-    @GetMapping(value = "/restaurante/{idRestaurante}")
-    public List<Pedido> listarPorRestaurante(@PathVariable("idRestaurante") Long idRestaurante, @PathVariable("status") String status){
-
-        return null;
-    }
 
     @ApiOperation(value = "Listar todos os pedidos de cada status por restaurante")
     @GetMapping(value = "/restaurante/{idRestaurante}/status/{status}")
@@ -71,11 +49,10 @@ public class StatusPedidoResource {
         return null;
     }
 
-    //Por Cliente --- Passar idRestaurante ou IdPedido tb?
     @ApiOperation(value = "Buscar status do Pedido por Cliente")
-    @GetMapping(value = "/cliente/{idCliente}")
-    public ResponseEntity<Optional<Pedido>> localizarStatusPedidoPorCliente(@PathVariable("idCliente") Long idCliente){
+    @GetMapping(value = "/cliente/{idCliente}/restaurante/{idRestaurante}")
+    public ResponseEntity<Optional<Pedido>> localizarStatusPedidoPorCliente(@PathVariable("idCliente") Long idCliente, @PathVariable("idRestaurante") Long idRestaurante){
 
-        return pedidoService.pedidoPorCliente(idCliente);
+        return null;
     }
 }
