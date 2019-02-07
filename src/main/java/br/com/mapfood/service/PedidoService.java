@@ -1,4 +1,4 @@
-package br.com.mapfood.Service;
+package br.com.mapfood.service;
 
 import java.util.List;
 import java.util.Optional;

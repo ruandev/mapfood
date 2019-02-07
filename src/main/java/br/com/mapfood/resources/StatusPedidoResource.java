@@ -38,7 +38,8 @@ public class StatusPedidoResource {
     @GetMapping(value = "/pedido/{idPedido}")
     public ResponseEntity<Optional<Pedido>> localizarStatusPorPedido(@PathVariable("idPedido") Long idPedido){
 
-        return pedidoService.statusPedido(idPedido);
+        return null;
+        //pedidoService.statusPedido(idPedido);
     }
 
 
