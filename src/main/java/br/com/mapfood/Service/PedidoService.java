@@ -74,14 +74,12 @@ public class PedidoService {
 		 List<Motoboy> listaTodosMotoBoy = motoBoyRepository.findAll();
 		 TreeMap<Double,Long> listaMotoboyOrdenada = new TreeMap<Double,Long>() ;
 		 TreeMap<Double,Long> listaMotoboy = new TreeMap<Double,Long>() ;
-
 		 
 		 DistanciaEmKm distancia = new DistanciaEmKm();
-		 System.out.println(p.getIdCliente());
-		 
-		 String latitude = estabelecimentoRespository.findById(p.getIdCliente()).get().getLatitude();
-		 
+			 
+		 String latitude = estabelecimentoRespository.findById(p.getIdCliente()).get().getLatitude();		 
 		 String longitude = estabelecimentoRespository.findById(p.getIdCliente()).get().getLongitude();
+		 
 		 Double distanciaMotoBoy ;
 		 
 		 for(Motoboy motoboy:listaTodosMotoBoy) {
@@ -94,18 +92,13 @@ public class PedidoService {
 			
 			listaMotoboyOrdenada.put(distanciaMotoBoy ,motoboy.getId())	;			
 			
-		 }
+		 }		 
 		 
-		 
-		 int indice = 0; //, valor = Integer.MIN_VALUE;
-		 
+		 int indice = 0;		 
 	
 		 for (Map.Entry<Double, Long> entry : listaMotoboyOrdenada.entrySet()) {
 		     if ( indice <10) {
 		         listaMotoboy.put(entry.getKey(), entry.getValue());
-		    	 System.out.println(entry.getKey()+" "+entry.getValue());
-		    	 System.out.println(listaMotoboy);
-		    
 		     }
 		     if (indice >10) break;
 		     indice++;
