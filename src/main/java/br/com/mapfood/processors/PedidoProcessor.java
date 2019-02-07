@@ -19,36 +19,36 @@ public class PedidoProcessor {
 
         // idPedido, idCliente, idEstabelecimento, idMotoboy, Status, itens
         Pedido p1=new Pedido(
-                (long)1,
-                (long)10,
-                (long)935,
+                1L,
+                10L,
+                935L,
                 null,
                 EstadoDoPedido.ACEITO,
                 null
         );
 
         Pedido p2=new Pedido(
-                (long)2,
-                (long)10,
-                (long)736,
+                2L,
+                10L,
+                736L,
                 null,
                 EstadoDoPedido.ACEITO,
                 null
         );
 
         Pedido p3=new Pedido(
-                (long)3,
-                (long)10,
-                (long)499,
+                3L,
+                10L,
+                499L,
                 null,
                 EstadoDoPedido.PREPARANDO,
                 null
         );
 
         Pedido p4=new Pedido(
-                (long)4,
-                (long)10,
-                (long)9,
+                4L,
+                10L,
+                9L,
                 null,
                 EstadoDoPedido.EM_DESLOCAMENTO,
                 null
@@ -110,7 +110,7 @@ public class PedidoProcessor {
         p3.setItens(itens3);
         p4.setItens(itens4);
 
-        List<Pedido> pedidos = new ArrayList<Pedido>();
+        List<Pedido> pedidos = new ArrayList<>();
         pedidos.add(p1);
         pedidos.add(p2);
         pedidos.add(p3);
