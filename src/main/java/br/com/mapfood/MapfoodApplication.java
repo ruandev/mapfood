@@ -3,7 +3,10 @@ package br.com.mapfood;
 import br.com.mapfood.Service.ClienteService;
 import br.com.mapfood.Service.EstabelecimentoService;
 import br.com.mapfood.Service.MotoboyService;
+import br.com.mapfood.Service.PedidoService;
 import br.com.mapfood.Service.ProdutosEstabelecimentoService;
+import br.com.mapfood.processors.PedidoProcessor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -23,6 +26,10 @@ public class MapfoodApplication implements CommandLineRunner {
 
 	@Autowired
 	private ProdutosEstabelecimentoService produtosEstabelecimentoService;
+	
+	@Autowired
+	private PedidoService pedidoService;
+	
 
 	public static void main(String[] args) {
 		SpringApplication.run(MapfoodApplication.class, args);
@@ -38,6 +45,9 @@ public class MapfoodApplication implements CommandLineRunner {
 		motoboyService.processarFileMotoboy();
 
 		produtosEstabelecimentoService.processarFileProdutosEstabelecimento();
+		
+		pedidoService.criarDados();
+		
 	}
 }
 
