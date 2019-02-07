@@ -1,5 +1,6 @@
 package br.com.mapfood.repository;
 
+<<<<<<< HEAD
 import br.com.mapfood.domain.Pedido;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -14,3 +15,15 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 
     List<Pedido> findAllByOrderByStatusPedido();
 }
+=======
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import br.com.mapfood.domain.Pedido;
+
+
+@Repository
+public interface  PedidoRepository extends JpaRepository<Pedido, Long> {
+
+}
+>>>>>>> master
