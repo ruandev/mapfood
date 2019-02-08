@@ -14,6 +14,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.mapfood.ApiMatrixGoogleMaps.FindRotasAndTimeAPI;
+import br.com.mapfood.ApiMatrixGoogleMaps.MotoboyRotas;
+import br.com.mapfood.ApiMatrixGoogleMaps.ObJectRotas;
 import br.com.mapfood.domain.Estabelecimento;
 import br.com.mapfood.domain.Motoboy;
 import br.com.mapfood.domain.Pedido;
@@ -69,18 +72,21 @@ public class PedidoService {
 		
 	}
 
-	public Pedido selecionarMotoBoy(Pedido p) {
+	public Pedido selecionarMotoBoy(Pedido pedido) {
 		
 		 List<Motoboy> listaTodosMotoBoy = motoBoyRepository.findAll();
-		 TreeMap<Double,Long> listaMotoboyOrdenada = new TreeMap<Double,Long>() ;
-		 TreeMap<Double,Long> listaMotoboy = new TreeMap<Double,Long>() ;
+		 List<MotoboyRotas> motoboyRotas = new ArrayList();
+		 List<MotoboyRotas> motoboyRotasGoogle = new ArrayList();
+	 
+		 String cordenadasOrigem;
+		 String cordenadasDestino;
 		 
 		 DistanciaEmKm distancia = new DistanciaEmKm();
-			 
-		 String latitude = estabelecimentoRespository.findById(p.getIdCliente()).get().getLatitude();		 
-		 String longitude = estabelecimentoRespository.findById(p.getIdCliente()).get().getLongitude();
 		 
-		 Double distanciaMotoBoy ;
+		 String latitude = estabelecimentoRespository.findById(pedido.getIdCliente()).get().getLatitude();		 
+		 String longitude = estabelecimentoRespository.findById(pedido.getIdCliente()).get().getLongitude();
+		 
+		 Double distanciaMotoBoy ;		 
 		 
 		 for(Motoboy motoboy:listaTodosMotoBoy) {
 			 
@@ -90,21 +96,47 @@ public class PedidoService {
 					Double.parseDouble(motoboy.getLatitude()), 
 					Double.parseDouble(motoboy.getLongitude()));
 			
-			listaMotoboyOrdenada.put(distanciaMotoBoy ,motoboy.getId())	;			
-			
+			MotoboyRotas m = new MotoboyRotas();
+			m.setId(motoboy.getId());
+			m.setDistancia(distanciaMotoBoy);			
+			motoboyRotas.add(m);
 		 }		 
+		 	  
+	     List<MotoboyRotas> listagenOrdenadasPorDistancia = motoboyRotas.stream()
+	    		    .sorted(Comparator.comparing(MotoboyRotas::getDistancia))
+	    		    .collect(Collectors.toList());		 
+
+		 cordenadasOrigem = longitude + ", " + latitude;
+
+		 FindRotasAndTimeAPI findRotasAndTimeAPI =  new  FindRotasAndTimeAPI ();
+		 		 
+		 ObJectRotas testeRotaUM =  new  ObJectRotas ();		 
 		 
-		 int indice = 0;		 
-	
-		 for (Map.Entry<Double, Long> entry : listaMotoboyOrdenada.entrySet()) {
-		     if ( indice <10) {
-		         listaMotoboy.put(entry.getKey(), entry.getValue());
-		     }
-		     if (indice >10) break;
-		     indice++;
+		 for(int i =0; i<5;i++) {
+			 MotoboyRotas motoboyRotas2 = new MotoboyRotas();
+
+			 Optional<Motoboy> motoboy = motoBoyRepository.findById(listagenOrdenadasPorDistancia.get(i).getId());
+			 
+			 cordenadasDestino=motoboy.get().getLongitude()+","+motoboy.get().getLatitude();
+             testeRotaUM =  findRotasAndTimeAPI.Api (cordenadasOrigem , cordenadasDestino); 
+             
+             motoboyRotas2.setId(motoboy.get().getId());
+             motoboyRotas2.setDistancia(testeRotaUM.getDistanciaMetros());
+             
+          
+             motoboyRotasGoogle.add(motoboyRotas2);
 		 }
 		 
+		 //ordena a lista pela distancia
+		 List<MotoboyRotas> listagemGoogleOrdenada = motoboyRotasGoogle.stream()
+	    		    .sorted(Comparator.comparing(MotoboyRotas::getDistancia))
+	    		    .collect(Collectors.toList());	
 		 
-		 return null;
+	     Long idMotoboy = listagemGoogleOrdenada.get(0).getId();
+	     
+	     pedido.setIdMotoboy(idMotoboy);
+	     pedidoRepository.save(pedido);
+	     
+		 return pedido;
 	}
 }
