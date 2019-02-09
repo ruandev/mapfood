@@ -39,5 +39,10 @@ public class PedidoResource {
     	return ResponseEntity.ok().body(pedido);
     }
    
+    @PostMapping(value="/rota")
+    public ResponseEntity<Pedido> selecionarRota(@RequestBody Pedido p){
+    	Pedido pedido = pedidoService.gerarRota(p);
+    	return ResponseEntity.ok().body(pedido);
+    }
 
 }

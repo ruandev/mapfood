@@ -15,12 +15,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.mapfood.ApiMatrixGoogleMaps.FindRotasAndTimeAPI;
+import br.com.mapfood.ApiMatrixGoogleMaps.FindRotasSteps;
 import br.com.mapfood.ApiMatrixGoogleMaps.MotoboyRotas;
 import br.com.mapfood.ApiMatrixGoogleMaps.ObJectRotas;
+import br.com.mapfood.ApiMatrixGoogleMaps.ObjectRotasSteps;
 import br.com.mapfood.domain.Estabelecimento;
 import br.com.mapfood.domain.Motoboy;
 import br.com.mapfood.domain.Pedido;
 import br.com.mapfood.processors.PedidoProcessor;
+import br.com.mapfood.repository.ClienteRepository;
 import br.com.mapfood.repository.EstabelecimentoRepository;
 import br.com.mapfood.repository.ItemDoPedidoRepository;
 import br.com.mapfood.repository.MotoboyRepository;
@@ -36,6 +39,9 @@ public class PedidoService {
 	
 	@Autowired
 	private EstabelecimentoRepository estabelecimentoRespository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
 	
 	@Autowired
 	private PedidoRepository pedidoRepository;
@@ -72,6 +78,29 @@ public class PedidoService {
 		
 	}
 
+	public Pedido gerarRota(Pedido pedido) {
+		
+		 String latitudeEstabelecimento = estabelecimentoRespository.findById(pedido.getIdEstabelecimento()).get().getLatitude();		 
+		 String longitudeEstabelecimento = estabelecimentoRespository.findById(pedido.getIdEstabelecimento()).get().getLongitude();
+		 String latitudeCliente = clienteRepository.findById(pedido.getIdCliente()).get().getLatitude();
+		 String longitudeCliente = clienteRepository.findById(pedido.getIdCliente()).get().getLongitude();
+		 String cordenadasOrigem;
+		 String cordenadasDestino;
+		 
+		 System.out.println(latitudeEstabelecimento+" "+longitudeEstabelecimento);
+		 System.out.println(latitudeCliente+" "+longitudeCliente);
+		 
+		 FindRotasSteps rotasSteps = new FindRotasSteps();
+		 
+		 cordenadasOrigem =longitudeEstabelecimento  + ", " + latitudeEstabelecimento;
+		 cordenadasDestino = longitudeCliente+", "+latitudeCliente;
+
+		 ObjectRotasSteps objectSteps= rotasSteps.Api(cordenadasOrigem,cordenadasDestino);
+		 
+		return null;
+	}
+	
+	
 	public Pedido selecionarMotoBoy(Pedido pedido) {
 		
 		 List<Motoboy> listaTodosMotoBoy = motoBoyRepository.findAll();
@@ -83,8 +112,8 @@ public class PedidoService {
 		 
 		 DistanciaEmKm distancia = new DistanciaEmKm();
 		 
-		 String latitude = estabelecimentoRespository.findById(pedido.getIdCliente()).get().getLatitude();		 
-		 String longitude = estabelecimentoRespository.findById(pedido.getIdCliente()).get().getLongitude();
+		 String latitude = estabelecimentoRespository.findById(pedido.getIdEstabelecimento()).get().getLatitude();		 
+		 String longitude = estabelecimentoRespository.findById(pedido.getIdEstabelecimento()).get().getLongitude();
 		 
 		 Double distanciaMotoBoy ;		 
 		 
@@ -122,9 +151,8 @@ public class PedidoService {
              
              motoboyRotas2.setId(motoboy.get().getId());
              motoboyRotas2.setDistancia(testeRotaUM.getDistanciaMetros());
-             
-          
              motoboyRotasGoogle.add(motoboyRotas2);
+             System.out.println("motoboyRotas 2 = "+motoboy.get().getId()+" "+testeRotaUM.getDistanciaMetros());
 		 }
 		 
 		 //ordena a lista pela distancia
