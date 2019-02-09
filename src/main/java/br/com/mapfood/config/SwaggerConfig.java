@@ -1,4 +1,4 @@
-package br.com.mapfood.Config;
+package br.com.mapfood.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

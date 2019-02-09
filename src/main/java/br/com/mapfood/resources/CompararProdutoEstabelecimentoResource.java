@@ -12,7 +12,7 @@ import br.com.mapfood.domain.ProdutosEstabelecimento;
 import br.com.mapfood.processors.CompararProdutoEstabelecimento;
 
 @RestController
-@RequestMapping(value = "/Compara")
+@RequestMapping(value = "/compara")
 public class CompararProdutoEstabelecimentoResource {
 
 	@Autowired

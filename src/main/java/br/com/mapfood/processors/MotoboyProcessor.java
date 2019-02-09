@@ -46,6 +46,7 @@ public class MotoboyProcessor {
                 .id(Long.valueOf(record.get(0)))
                 .latitude(record.get(1))
                 .longitude(record.get(2))
+                .disponivel(true)
                 .build();
     }
 }

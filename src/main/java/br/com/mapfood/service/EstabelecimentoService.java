@@ -1,4 +1,4 @@
-package br.com.mapfood.Service;
+package br.com.mapfood.service;
 
 import br.com.mapfood.domain.Estabelecimento;
 import br.com.mapfood.processors.EstabelecimentoProcessor;

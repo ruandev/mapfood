@@ -27,6 +27,10 @@ public class Estabelecimento implements Serializable {
     private String longitude;
     private String latitude;
     private String dishDescription;
+
+    public Estabelecimento(Long id) {
+        this.id = id;
+    }
 }
 
 

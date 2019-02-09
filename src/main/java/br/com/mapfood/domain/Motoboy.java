@@ -8,10 +8,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Builder
@@ -29,4 +26,9 @@ public class Motoboy implements Serializable {
     private String longitude;
 
     private String latitude;
+
+    @Transient
+    private double distanciaParaEstabelecimento;
+
+    private boolean disponivel;
 }
