@@ -1,9 +1,8 @@
-package br.com.mapfood.Service;
+package br.com.mapfood.service;
 
 import java.util.List;
 import java.util.Optional;
 
-import br.com.mapfood.domain.Motoboy;
 import br.com.mapfood.domain.ProdutosEstabelecimento;
 import br.com.mapfood.processors.ProdutosEstabelecimentoProcessor;
 import br.com.mapfood.repository.ProdutosEstabelecimentoRepository;

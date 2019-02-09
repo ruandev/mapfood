@@ -1,8 +1,8 @@
 package br.com.mapfood.resources;
 
-import br.com.mapfood.APIMaps.FindRotasAndTimeAPI;
-import br.com.mapfood.Service.ClienteService;
-import br.com.mapfood.Service.EstabelecimentoService;
+import br.com.mapfood.apimaps.FindRotasAndTimeAPI;
+import br.com.mapfood.service.ClienteService;
+import br.com.mapfood.service.EstabelecimentoService;
 import br.com.mapfood.domain.Cliente;
 import br.com.mapfood.domain.Estabelecimento;
 import br.com.mapfood.domain.Rotas;
@@ -34,13 +34,13 @@ public class RouteClienteRestauranteResource {
     public ResponseEntity<Rotas> buscaRotaClienteRestaurante(@RequestHeader Long idCliente, @RequestHeader Long idEstabelecimento ){
         //Busca coordenadas do cliente
         Cliente cliente1 =  clienteService.findById(idCliente);
-        String CORDENADAS_ORIGEM = cliente1.getLongitude()+","+ cliente1.getLatitude();
+        String coodenadasOrigem = cliente1.getLongitude()+","+ cliente1.getLatitude();
 
         //Buscando no repositorio das coordenadas do estabelecimento
         Estabelecimento estabelecimento =  estabelecimentoService.findById(idEstabelecimento);
-        String CORDENADAS_DESTINO = estabelecimento.getLongitude() +","+ estabelecimento.getLatitude() ;
+        String coordenadasDestino = estabelecimento.getLongitude() +","+ estabelecimento.getLatitude() ;
 
-        Rotas obJectRotas = findRoutesAndTimeService.ApiBuscaRota(CORDENADAS_ORIGEM, CORDENADAS_DESTINO);
+        Rotas obJectRotas = findRoutesAndTimeService.buscarDistanciaTempo(coodenadasOrigem, coordenadasDestino);
         System.out.println("Rota de entrega entre cliente e restaurente: " + obJectRotas);
 
         return ResponseEntity.ok(obJectRotas);

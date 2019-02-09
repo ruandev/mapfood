@@ -2,6 +2,7 @@ package br.com.mapfood.resources;
 
 import java.util.List;
 
+import com.google.maps.model.DirectionsStep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.mapfood.Service.PedidoService;
+import br.com.mapfood.service.PedidoService;
 import br.com.mapfood.domain.Pedido;
 
 @RestController
-@RequestMapping(value = "/Pedidos")
+@RequestMapping(value = "/pedidos")
 public class PedidoResource {
 	
 	@Autowired
@@ -33,16 +34,18 @@ public class PedidoResource {
         return ResponseEntity.ok().body(pedido);
     }
     
-    @PostMapping(value="/selecionarmotoboy")
-    public ResponseEntity<Pedido> selecionarMotoBoy(@RequestBody Pedido p){
-    	Pedido pedido = pedidoService.selecionarMotoBoy(p);
-    	return ResponseEntity.ok().body(pedido);
+    @GetMapping(value="/selecionarmotoboy/{idPedido}")
+    public ResponseEntity<Pedido> selecionarMotoBoy(@PathVariable Long idPedido){
+    	return ResponseEntity.ok().body(pedidoService.selecionarMotoBoy(idPedido));
     }
    
-    @PostMapping(value="/rota")
-    public ResponseEntity<Pedido> selecionarRota(@RequestBody Pedido p){
-    	Pedido pedido = pedidoService.gerarRota(p);
-    	return ResponseEntity.ok().body(pedido);
+    @GetMapping(value="/rota/{idPedido}")
+    public ResponseEntity<List<DirectionsStep>> selecionarRota(@PathVariable Long idPedido){
+    	return ResponseEntity.ok().body(pedidoService.gerarRota(idPedido));
     }
 
+    @GetMapping(value="/expectativaentrega/{idPedido}")
+    public ResponseEntity<Long> expectativaEntrega(@PathVariable Long idPedido){
+        return ResponseEntity.ok().body(pedidoService.expectativaEntrega(idPedido));
+    }
 }

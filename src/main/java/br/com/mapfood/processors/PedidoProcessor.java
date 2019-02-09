@@ -19,13 +19,12 @@ public class PedidoProcessor {
 		List<ItemDoPedido> itens3 = new ArrayList<ItemDoPedido>();
 		List<ItemDoPedido> itens4 = new ArrayList<ItemDoPedido>();
 		
-		// idPedido, idCliente, idEstabelecimento, idMotoboy, Status, itens
+		// idPedido, idCliente, idEstabelecimento, Status, itens
 		Pedido p1=new Pedido(
 				(long)1,
 				(long)10,
 				(long)935,
-				null,
-				EstadoDoPedido.ACEITO,
+				EstadoDoPedido.PREPARANDO,
 				null
 				);
 			
@@ -33,16 +32,14 @@ public class PedidoProcessor {
 				(long)2,
 				(long)10,
 				(long)736,
-				null,
-				EstadoDoPedido.ACEITO,
+				EstadoDoPedido.PREPARANDO,
 				null
 				);
 		
 		Pedido p3=new Pedido(
 				(long)3,
-				(long)10,
-				(long)499,
-				null,
+				(long)1001,
+				(long)1001,
 				EstadoDoPedido.PREPARANDO,
 				null
 				);
@@ -51,7 +48,6 @@ public class PedidoProcessor {
 				(long)4,
 				(long)10,
 				(long)9,
-				null,
 				EstadoDoPedido.EM_DESLOCAMENTO,
 				null
 				);	

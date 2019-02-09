@@ -2,7 +2,7 @@ package br.com.mapfood.resources;
 
 import java.util.List;
 
-import br.com.mapfood.Service.EstabelecimentoService;
+import br.com.mapfood.service.EstabelecimentoService;
 import br.com.mapfood.domain.Estabelecimento;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

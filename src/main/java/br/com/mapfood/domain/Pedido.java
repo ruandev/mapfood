@@ -33,13 +33,18 @@ public class Pedido implements Serializable {
 	private Long idCliente;
 	private Long idEstabelecimento;    
 	private Long idMotoboy;
+	private Long tempoExpectativaEntrega;
 	
 	private EstadoDoPedido statusPedido;	
 	
 	@OneToMany(mappedBy="pedido", cascade=CascadeType.ALL)
 	private List<ItemDoPedido> itens = new ArrayList();
-		
 
-	 
-	 
+	public Pedido(Long idPedido, Long idCliente, Long idEstabelecimento, EstadoDoPedido statusPedido, List<ItemDoPedido> itens) {
+		this.idPedido = idPedido;
+		this.idCliente = idCliente;
+		this.idEstabelecimento = idEstabelecimento;
+		this.statusPedido = statusPedido;
+		this.itens = itens;
+	}
 }

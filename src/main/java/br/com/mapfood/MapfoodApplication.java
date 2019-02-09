@@ -1,11 +1,10 @@
 package br.com.mapfood;
 
-import br.com.mapfood.Service.ClienteService;
-import br.com.mapfood.Service.EstabelecimentoService;
-import br.com.mapfood.Service.MotoboyService;
-import br.com.mapfood.Service.PedidoService;
-import br.com.mapfood.Service.ProdutosEstabelecimentoService;
-import br.com.mapfood.processors.PedidoProcessor;
+import br.com.mapfood.service.ClienteService;
+import br.com.mapfood.service.EstabelecimentoService;
+import br.com.mapfood.service.MotoboyService;
+import br.com.mapfood.service.PedidoService;
+import br.com.mapfood.service.ProdutosEstabelecimentoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
