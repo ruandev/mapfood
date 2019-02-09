@@ -1,13 +1,11 @@
 package br.com.mapfood.resources;
 
-import br.com.mapfood.APIMaps.ObJectRotas;
-import br.com.mapfood.Service.ClienteService;
+import br.com.mapfood.APIMaps.FindRotasAndTimeAPI;
 import br.com.mapfood.Service.EstabelecimentoService;
-import br.com.mapfood.Service.FindRoutesAndTimeService;
 import br.com.mapfood.Service.MotoboyService;
-import br.com.mapfood.domain.Cliente;
 import br.com.mapfood.domain.Estabelecimento;
 import br.com.mapfood.domain.Motoboy;
+import br.com.mapfood.domain.Rotas;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,11 +25,11 @@ public class RouteRestauranteMotoboyResource {
     private EstabelecimentoService estabelecimentoService;
 
     @Autowired
-    private FindRoutesAndTimeService findRoutesAndTimeService;
+    private FindRotasAndTimeAPI findRoutesAndTimeService;
 
     @ApiOperation(value = "Retorna tempo e distancia entre restaurante e motoboy")
     @GetMapping
-    public ResponseEntity<ObJectRotas> buscaRotaRestauranteMotoboy(@RequestHeader Long idEstabelecimento, @RequestHeader Long idMotoboy ){
+    public ResponseEntity<Rotas> buscaRotaRestauranteMotoboy(@RequestHeader Long idEstabelecimento, @RequestHeader Long idMotoboy ){
         //Buscando no repositorio das coordenadas do motoboy
         Estabelecimento estabelecimento =  estabelecimentoService.findById(idEstabelecimento);
         String CORDENADAS_ORIGEM = estabelecimento.getLongitude() +","+ estabelecimento.getLatitude() ;
@@ -40,7 +38,7 @@ public class RouteRestauranteMotoboyResource {
         Motoboy motoboy =  motoboyService.findById(idMotoboy);
         String CORDENADAS_DESTINO = motoboy.getLongitude()+","+ motoboy.getLatitude();
 
-        ObJectRotas obJectRotas = findRoutesAndTimeService.ApiBuscaRota(CORDENADAS_ORIGEM, CORDENADAS_DESTINO);
+        Rotas obJectRotas = findRoutesAndTimeService.ApiBuscaRota(CORDENADAS_ORIGEM, CORDENADAS_DESTINO);
         System.out.println("Rota restaurente ao motoboy: " + obJectRotas);
 
         return ResponseEntity.ok(obJectRotas);

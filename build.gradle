@@ -25,12 +25,13 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'com.google.maps:google-maps-services:0.9.1'
+	implementation 'org.slf4j:slf4j-simple:1.7.25'
 	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	compile group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
 	compile group: 'org.apache.commons', name: 'commons-csv', version: '1.6'
-
 
 	//dependencies google maps api matrix
 	compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.11.0'

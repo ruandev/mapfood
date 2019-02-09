@@ -1,34 +1,23 @@
 package br.com.mapfood.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
-
+import br.com.mapfood.APIMaps.FindRotasAndTimeAPI;
+import br.com.mapfood.ApiMatrixGoogleMaps.FindRotasSteps;
+import br.com.mapfood.ApiMatrixGoogleMaps.MotoboyRotas;
+import br.com.mapfood.ApiMatrixGoogleMaps.ObjectRotasSteps;
+import br.com.mapfood.domain.Motoboy;
+import br.com.mapfood.domain.Pedido;
+import br.com.mapfood.domain.Rotas;
+import br.com.mapfood.processors.PedidoProcessor;
+import br.com.mapfood.repository.*;
+import br.com.mapfood.util.DistanciaEmKm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.mapfood.ApiMatrixGoogleMaps.FindRotasAndTimeAPI;
-import br.com.mapfood.ApiMatrixGoogleMaps.FindRotasSteps;
-import br.com.mapfood.ApiMatrixGoogleMaps.MotoboyRotas;
-import br.com.mapfood.ApiMatrixGoogleMaps.ObJectRotas;
-import br.com.mapfood.ApiMatrixGoogleMaps.ObjectRotasSteps;
-import br.com.mapfood.domain.Estabelecimento;
-import br.com.mapfood.domain.Motoboy;
-import br.com.mapfood.domain.Pedido;
-import br.com.mapfood.processors.PedidoProcessor;
-import br.com.mapfood.repository.ClienteRepository;
-import br.com.mapfood.repository.EstabelecimentoRepository;
-import br.com.mapfood.repository.ItemDoPedidoRepository;
-import br.com.mapfood.repository.MotoboyRepository;
-import br.com.mapfood.repository.PedidoRepository;
-import br.com.mapfood.util.DistanciaEmKm;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -137,9 +126,9 @@ public class PedidoService {
 
 		 cordenadasOrigem = longitude + ", " + latitude;
 
-		 FindRotasAndTimeAPI findRotasAndTimeAPI =  new  FindRotasAndTimeAPI ();
+		 FindRotasAndTimeAPI findRotasAndTimeAPI =  new FindRotasAndTimeAPI ();
 		 		 
-		 ObJectRotas testeRotaUM =  new  ObJectRotas ();		 
+		 Rotas testeRotaUM;
 		 
 		 for(int i =0; i<5;i++) {
 			 MotoboyRotas motoboyRotas2 = new MotoboyRotas();
@@ -147,7 +136,7 @@ public class PedidoService {
 			 Optional<Motoboy> motoboy = motoBoyRepository.findById(listagenOrdenadasPorDistancia.get(i).getId());
 			 
 			 cordenadasDestino=motoboy.get().getLongitude()+","+motoboy.get().getLatitude();
-             testeRotaUM =  findRotasAndTimeAPI.Api (cordenadasOrigem , cordenadasDestino); 
+             testeRotaUM =  findRotasAndTimeAPI.ApiBuscaRota(cordenadasOrigem , cordenadasDestino);
              
              motoboyRotas2.setId(motoboy.get().getId());
              motoboyRotas2.setDistancia(testeRotaUM.getDistanciaMetros());
