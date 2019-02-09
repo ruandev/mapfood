@@ -26,4 +26,8 @@ public class Cliente  implements Serializable {
     private String longitude;
 
     private String latitude;
+
+    public Cliente(Long id) {
+        this.id = id;
+    }
 }

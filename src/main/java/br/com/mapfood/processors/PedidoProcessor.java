@@ -3,6 +3,8 @@ package br.com.mapfood.processors;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.mapfood.domain.Cliente;
+import br.com.mapfood.domain.Estabelecimento;
 import org.springframework.stereotype.Service;
 import br.com.mapfood.domain.ItemDoPedido;
 import br.com.mapfood.domain.Pedido;
@@ -21,37 +23,45 @@ public class PedidoProcessor {
 		
 		// idPedido, idCliente, idEstabelecimento, Status, itens
 		Pedido p1=new Pedido(
-				(long)1,
-				(long)10,
-				(long)935,
+				1l,
+				new Cliente(1001l),
+				new Estabelecimento(1001l),
 				EstadoDoPedido.PREPARANDO,
 				null
 				);
 			
 		Pedido p2=new Pedido(
-				(long)2,
-				(long)10,
-				(long)736,
+				2l,
+				new Cliente(1002l),
+				new Estabelecimento(1001l),
 				EstadoDoPedido.PREPARANDO,
 				null
 				);
 		
 		Pedido p3=new Pedido(
-				(long)3,
-				(long)1001,
-				(long)1001,
+				3l,
+				new Cliente(1003l),
+				new Estabelecimento(1001l),
 				EstadoDoPedido.PREPARANDO,
 				null
 				);
 				
 		Pedido p4=new Pedido(
-				(long)4,
-				(long)10,
-				(long)9,
+				4l,
+				new Cliente(1004l),
+				new Estabelecimento(1001l),
 				EstadoDoPedido.EM_DESLOCAMENTO,
 				null
-				);	
-		
+				);
+
+		Pedido p5=new Pedido(
+				5l,
+				new Cliente(1005l),
+				new Estabelecimento(1001l),
+				EstadoDoPedido.EM_DESLOCAMENTO,
+				null
+		);
+
 		ItemDoPedido item1 = new ItemDoPedido();
 		ItemDoPedido item2 = new ItemDoPedido();
 		ItemDoPedido item3 = new ItemDoPedido();
@@ -108,13 +118,14 @@ public class PedidoProcessor {
 		p2.setItens(itens2);
 		p3.setItens(itens3);
 		p4.setItens(itens4);
+		p5.setItens(itens4);
 		
 	    List<Pedido> pedidos = new ArrayList<Pedido>();
 	    pedidos.add(p1);
 	    pedidos.add(p2);
 	    pedidos.add(p3);
 	    pedidos.add(p4);
-		
+		pedidos.add(p5);
 	   
 	    return pedidos;
 	}

@@ -1,21 +1,15 @@
 package br.com.mapfood.domain;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
 import br.com.mapfood.domain.enums.EstadoDoPedido;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Data
@@ -30,9 +24,16 @@ public class Pedido implements Serializable {
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long idPedido;
-	private Long idCliente;
-	private Long idEstabelecimento;    
-	private Long idMotoboy;
+
+	@OneToOne(fetch = FetchType.EAGER)
+	private Cliente cliente;
+
+	@OneToOne(fetch = FetchType.EAGER)
+	private Estabelecimento estabelecimento;
+
+	@OneToOne(fetch = FetchType.EAGER)
+	private Motoboy motoboy;
+
 	private Long tempoExpectativaEntrega;
 	
 	private EstadoDoPedido statusPedido;	
@@ -40,10 +41,13 @@ public class Pedido implements Serializable {
 	@OneToMany(mappedBy="pedido", cascade=CascadeType.ALL)
 	private List<ItemDoPedido> itens = new ArrayList();
 
-	public Pedido(Long idPedido, Long idCliente, Long idEstabelecimento, EstadoDoPedido statusPedido, List<ItemDoPedido> itens) {
+	@Transient
+	private Long tempoEstabelecimentoCliente;
+
+	public Pedido(Long idPedido, Cliente cliente, Estabelecimento estabelecimento, EstadoDoPedido statusPedido, List<ItemDoPedido> itens) {
 		this.idPedido = idPedido;
-		this.idCliente = idCliente;
-		this.idEstabelecimento = idEstabelecimento;
+		this.cliente = cliente;
+		this.estabelecimento = estabelecimento;
 		this.statusPedido = statusPedido;
 		this.itens = itens;
 	}

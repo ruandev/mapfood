@@ -29,4 +29,6 @@ public class Motoboy implements Serializable {
 
     @Transient
     private double distanciaParaEstabelecimento;
+
+    private boolean disponivel;
 }
