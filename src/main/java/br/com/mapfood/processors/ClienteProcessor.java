@@ -5,6 +5,7 @@ import br.com.mapfood.domain.Cliente;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
@@ -24,7 +25,7 @@ public class ClienteProcessor {
         CSVFormat format = CSVFormat.DEFAULT.withHeader().withDelimiter(',');
 
         //initialize the CSVParser object
-        try (CSVParser parser = new CSVParser(new FileReader(classLoader.getResource("filesCsv/clientes.csv").getFile()), format)) {
+        try (CSVParser parser = new CSVParser(new FileReader(classLoader.getResource("C:\\Users\\AnaCarolina\\codenation\\mapfood\\src\\main\\resources\\filesCsv\\clientes.csv").getFile()), format)) {
             for (CSVRecord record : parser) {
                 Cliente cliente = montarCliente(record);
                 listClientes.add(cliente);
