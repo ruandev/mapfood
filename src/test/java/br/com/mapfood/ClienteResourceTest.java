@@ -17,9 +17,5 @@ public class ClienteResourceTest {
     @Autowired
     private ClienteResource clienteResource;
 
-    @Mock
-    private Cliente cliente;
 
-    @InjectMocks
-    private ClienteRepository clienteRepository;
 }
