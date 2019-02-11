@@ -1,4 +1,4 @@
-package br.com.mapfood.resources;
+package br.com.mapfood.controller;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import br.com.mapfood.processors.CompararProdutoEstabelecimento;
 
 @RestController
 @RequestMapping(value = "/compara")
-public class CompararProdutoEstabelecimentoResource {
+public class CompararProdutoEstabelecimentoController {
 
 	@Autowired
 	private CompararProdutoEstabelecimento comparaProduto;

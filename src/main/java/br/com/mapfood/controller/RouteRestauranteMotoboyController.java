@@ -1,4 +1,4 @@
-package br.com.mapfood.resources;
+package br.com.mapfood.controller;
 
 import br.com.mapfood.apimaps.GMapsMatrixAPI;
 import br.com.mapfood.service.EstabelecimentoService;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/rotarestaurantemotoboy")
-public class RouteRestauranteMotoboyResource {
+public class RouteRestauranteMotoboyController {
 
     @Autowired
     private MotoboyService motoboyService;

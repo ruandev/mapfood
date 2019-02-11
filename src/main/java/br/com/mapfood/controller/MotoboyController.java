@@ -1,4 +1,4 @@
-package br.com.mapfood.resources;
+package br.com.mapfood.controller;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/motoboys")
-public class MotoboyResource {
+public class MotoboyController {
 
     @Autowired
     private MotoboyService motoboyService;
