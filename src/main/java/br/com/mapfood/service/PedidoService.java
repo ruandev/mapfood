@@ -1,6 +1,6 @@
 package br.com.mapfood.service;
 
-import br.com.mapfood.apimaps.FindRotasAndTimeAPI;
+import br.com.mapfood.apimaps.GMapsMatrixAPI;
 import br.com.mapfood.domain.*;
 import br.com.mapfood.processors.PedidoProcessor;
 import br.com.mapfood.repository.*;
@@ -17,9 +17,10 @@ import java.util.stream.Collectors;
 @Service
 public class PedidoService {
 
-	private static final long TEMPO_MAXIMO = 30l;
+    private static final long TEMPO_MAXIMO = 30;
+    private static final int TEMPO_PREPARO = 10;
 
-	@Autowired
+    @Autowired
 	private MotoboyRepository motoBoyRepository;
 	
 	@Autowired
@@ -66,7 +67,7 @@ public class PedidoService {
 		String cordenadasOrigem = estabelecimento.getLongitude()  + ", " + estabelecimento.getLatitude();;
 		String cordenadasDestino = cliente.getLongitude()+", "+cliente.getLatitude();
 
-		return FindRotasAndTimeAPI.buscarRotas(cordenadasOrigem,cordenadasDestino);
+		return GMapsMatrixAPI.buscarRotas(cordenadasOrigem,cordenadasDestino);
 	}
 
 
@@ -102,7 +103,7 @@ public class PedidoService {
 		Estabelecimento estabelecimento = pedidos.get(0).getEstabelecimento();
 
 		for(Cliente cliente : listCliente){
-			Rotas rota = FindRotasAndTimeAPI.buscarDistanciaTempo(estabelecimento.getLongitude(), estabelecimento.getLatitude(), cliente.getLongitude(), cliente.getLatitude());
+			Rotas rota = GMapsMatrixAPI.buscarDistanciaTempo(estabelecimento.getLongitude(), estabelecimento.getLatitude(), cliente.getLongitude(), cliente.getLatitude());
 
 			pedidos.stream()
 					.filter(p -> p.getCliente().equals(cliente))
@@ -121,17 +122,15 @@ public class PedidoService {
 
 			Motoboy motoboy = motoboyService.definirMotoboyPedido(pedidoMaisProximoSemMotoboy);
 
-			pedidos.stream()
-					.filter(p -> p.getIdPedido().equals(pedidoMaisProximoSemMotoboy.getIdPedido()))
-					.findFirst().get()
-					.setMotoboy(motoboy);
-
 			Long previsaoEntrega = calcularPrevisao(motoboy, pedidoMaisProximoSemMotoboy.getEstabelecimento(), pedidoMaisProximoSemMotoboy.getCliente());
 
             pedidos.stream()
                     .filter(p -> p.getIdPedido().equals(pedidoMaisProximoSemMotoboy.getIdPedido()))
                     .findFirst().get()
-                    .setTempoExpectativaEntrega(previsaoEntrega);
+                    .builder()
+                    .motoboy(motoboy)
+                    .tempoExpectativaEntrega(previsaoEntrega)
+                    .build();
 
 			List<Pedido> pedidosSemMotoboy = pedidos.stream()
 													.filter(p -> p.getMotoboy() == null)
@@ -146,13 +145,11 @@ public class PedidoService {
 						previsaoEntrega = previsaoEntrega + tempoEntreClientes;
 						int finalI = i;
 						pedidos.stream()
-								.filter(p -> p.getIdPedido() == pedidosSemMotoboy.get(finalI).getIdPedido())
+								.filter(p -> p.getIdPedido().equals(pedidosSemMotoboy.get(finalI).getIdPedido()))
 								.findFirst().get()
-								.setMotoboy(motoboy);
-                        pedidos.stream()
-                                .filter(p -> p.getIdPedido() == pedidosSemMotoboy.get(finalI).getIdPedido())
-                                .findFirst().get()
-                                .setTempoExpectativaEntrega(previsaoEntrega);
+                                .builder()
+								.motoboy(motoboy)
+                                .tempoExpectativaEntrega(previsaoEntrega).build();
 					} else {
 						motoboy.setDisponivel(false);
 						motoBoyRepository.save(motoboy);
@@ -169,25 +166,25 @@ public class PedidoService {
 
 
 
-	private Long calcularPrevisao(Motoboy motoboy, Estabelecimento estabelecimento, Cliente cliente) {
-		Long tempoSegundoMotoboyEstabelecimento = FindRotasAndTimeAPI.buscarDistanciaTempo(motoboy.getLongitude(), motoboy.getLatitude(), estabelecimento.getLongitude(), estabelecimento.getLatitude()).getTempoSegundos();
+	private long calcularPrevisao(Motoboy motoboy, Estabelecimento estabelecimento, Cliente cliente) {
+		Long tempoSegundoMotoboyEstabelecimento = GMapsMatrixAPI.buscarDistanciaTempo(motoboy.getLongitude(), motoboy.getLatitude(), estabelecimento.getLongitude(), estabelecimento.getLatitude()).getTempoSegundos();
 		Long tempoMinutosMotoboyEstabelecimento = tempoSegundoMotoboyEstabelecimento/60;
 
-		Long tempoSegundoEstabelecimentoCliente = FindRotasAndTimeAPI.buscarDistanciaTempo(estabelecimento.getLongitude(), estabelecimento.getLatitude(), cliente.getLongitude(), cliente.getLatitude()).getTempoSegundos();
+		Long tempoSegundoEstabelecimentoCliente = GMapsMatrixAPI.buscarDistanciaTempo(estabelecimento.getLongitude(), estabelecimento.getLatitude(), cliente.getLongitude(), cliente.getLatitude()).getTempoSegundos();
 		Long tempoMinutosEstabelecimentoCliente = tempoSegundoEstabelecimentoCliente/60;
 
-		Long expectativa;
+		long expectativa;
 
-		if(tempoMinutosMotoboyEstabelecimento > 10){
+		if(tempoMinutosMotoboyEstabelecimento > TEMPO_PREPARO){
 			expectativa = tempoMinutosMotoboyEstabelecimento + tempoMinutosEstabelecimentoCliente;
 		} else {
-			expectativa =  10 + tempoMinutosEstabelecimentoCliente;
+			expectativa = TEMPO_PREPARO + tempoMinutosEstabelecimentoCliente;
 		}
 		return expectativa;
 	}
 
-	private Long calcularTempoCliente(Cliente clienteOrigem, Cliente proximoCliente) {
-		Long tempoSegundo = FindRotasAndTimeAPI.buscarDistanciaTempo(clienteOrigem.getLongitude(), clienteOrigem.getLatitude(), proximoCliente.getLongitude(), proximoCliente.getLatitude()).getTempoSegundos();
+	private long calcularTempoCliente(Cliente clienteOrigem, Cliente proximoCliente) {
+		long tempoSegundo = GMapsMatrixAPI.buscarDistanciaTempo(clienteOrigem.getLongitude(), clienteOrigem.getLatitude(), proximoCliente.getLongitude(), proximoCliente.getLatitude()).getTempoSegundos();
 
 		return tempoSegundo/60;
 	}

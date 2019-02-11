@@ -21,17 +21,13 @@ public class MotoboyProcessor {
 
         ClassLoader classLoader = new MapfoodApplication().getClass().getClassLoader();
 
-        //Create the CSVFormat object
         CSVFormat format = CSVFormat.DEFAULT.withHeader().withDelimiter(',');
 
-        //initialize the CSVParser object
         try (CSVParser parser = new CSVParser(new FileReader(classLoader.getResource("filesCsv/motoboys.csv").getFile()), format)) {
             for (CSVRecord record : parser) {
                 Motoboy motoboy = montarMotoboy(record);
                 listMotoboys.add(motoboy);
             }
-            //close the parser
-            parser.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

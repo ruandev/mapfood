@@ -16,12 +16,11 @@ public class PedidoProcessor {
 	
 	public List<Pedido> criarPedidos(){
 		
-		List<ItemDoPedido> itens1 = new ArrayList<ItemDoPedido>();
-		List<ItemDoPedido> itens2 = new ArrayList<ItemDoPedido>();
-		List<ItemDoPedido> itens3 = new ArrayList<ItemDoPedido>();
-		List<ItemDoPedido> itens4 = new ArrayList<ItemDoPedido>();
-		
-		// idPedido, idCliente, idEstabelecimento, Status, itens
+		List<ItemDoPedido> itens1 = new ArrayList<>();
+		List<ItemDoPedido> itens2 = new ArrayList<>();
+		List<ItemDoPedido> itens3 = new ArrayList<>();
+		List<ItemDoPedido> itens4 = new ArrayList<>();
+
 		Pedido p1=new Pedido(
 				1l,
 				new Cliente(1001l),
