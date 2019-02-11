@@ -4,9 +4,10 @@ import br.com.mapfood.apimaps.FindRotasAndTimeAPI;
 import br.com.mapfood.domain.*;
 import br.com.mapfood.processors.PedidoProcessor;
 import br.com.mapfood.repository.*;
-import com.google.maps.model.DirectionsStep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.google.maps.model.DirectionsStep;
 
 import java.util.Comparator;
 import java.util.List;
@@ -128,11 +129,20 @@ public class PedidoService {
 
 			Long previsaoEntrega = calcularPrevisao(motoboy, pedidoMaisProximoSemMotoboy.getEstabelecimento(), pedidoMaisProximoSemMotoboy.getCliente());
 
+			Long km =  buscarKm(pedidoMaisProximoSemMotoboy.getEstabelecimento(), pedidoMaisProximoSemMotoboy.getCliente());
+
+
             pedidos.stream()
                     .filter(p -> p.getIdPedido().equals(pedidoMaisProximoSemMotoboy.getIdPedido()))
                     .findFirst().get()
                     .setTempoExpectativaEntrega(previsaoEntrega);
 
+            pedidos.stream()
+            .filter(p -> p.getIdPedido().equals(pedidoMaisProximoSemMotoboy.getIdPedido()))
+            .findFirst().get()
+            .setDistanciaMetros(km);
+            
+            
 			List<Pedido> pedidosSemMotoboy = pedidos.stream()
 													.filter(p -> p.getMotoboy() == null)
 													.collect(Collectors.toList());
@@ -141,6 +151,7 @@ public class PedidoService {
 				if (previsaoEntrega < TEMPO_MAXIMO) {
 					Long tempoEntreClientes = calcularTempoCliente(pedidoMaisProximoSemMotoboy.getCliente(),
 																	pedidosSemMotoboy.get(i).getCliente());
+					km =  buscarKm(pedidoMaisProximoSemMotoboy.getEstabelecimento(), pedidosSemMotoboy.get(i).getCliente());
 
 					if (previsaoEntrega + tempoEntreClientes <= TEMPO_MAXIMO) {
 						previsaoEntrega = previsaoEntrega + tempoEntreClientes;
@@ -153,12 +164,23 @@ public class PedidoService {
                                 .filter(p -> p.getIdPedido() == pedidosSemMotoboy.get(finalI).getIdPedido())
                                 .findFirst().get()
                                 .setTempoExpectativaEntrega(previsaoEntrega);
+                        pedidos.stream()
+                        .filter(p -> p.getIdPedido() == pedidosSemMotoboy.get(finalI).getIdPedido())
+                        .findFirst().get()
+                        .setDistanciaMetros(km);
+                        
 					} else {
+					      pedidos.stream()
+	                        .filter(p -> p.getIdPedido().equals(pedidoMaisProximoSemMotoboy.getIdPedido()))
+	                        .findFirst().get()
+	                        .setDistanciaMetros(km);
+					      
 						motoboy.setDisponivel(false);
 						motoBoyRepository.save(motoboy);
 						break;
 					}
 				}
+		
 			}
 
 		} while(pedidos.get(pedidos.size()-1).getMotoboy() == null);
@@ -176,6 +198,7 @@ public class PedidoService {
 		Long tempoSegundoEstabelecimentoCliente = FindRotasAndTimeAPI.buscarDistanciaTempo(estabelecimento.getLongitude(), estabelecimento.getLatitude(), cliente.getLongitude(), cliente.getLatitude()).getTempoSegundos();
 		Long tempoMinutosEstabelecimentoCliente = tempoSegundoEstabelecimentoCliente/60;
 
+		String kmDoEstabelecimentoAteCliente = FindRotasAndTimeAPI.buscarDistanciaTempo(estabelecimento.getLongitude(), estabelecimento.getLatitude(), cliente.getLongitude(), cliente.getLatitude()).getDistancia();
 		Long expectativa;
 
 		if(tempoMinutosMotoboyEstabelecimento > 10){
@@ -185,10 +208,29 @@ public class PedidoService {
 		}
 		return expectativa;
 	}
+	
+	private Long buscarKm(Estabelecimento estabelecimento, Cliente cliente) {
+		
+		Long  kmDoEstabelecimentoAteClienteEmMetro = FindRotasAndTimeAPI.buscarDistanciaTempo(estabelecimento.getLongitude(), estabelecimento.getLatitude(), cliente.getLongitude(), cliente.getLatitude()).getDistanciaMetros();
+		
+		//Long longKmDoEstabelecimentoAteCliente =  kmDoEstabelecimentoAteClienteEmMetro/1000;
+		
+		return kmDoEstabelecimentoAteClienteEmMetro;
+	}
 
 	private Long calcularTempoCliente(Cliente clienteOrigem, Cliente proximoCliente) {
 		Long tempoSegundo = FindRotasAndTimeAPI.buscarDistanciaTempo(clienteOrigem.getLongitude(), clienteOrigem.getLatitude(), proximoCliente.getLongitude(), proximoCliente.getLatitude()).getTempoSegundos();
 
 		return tempoSegundo/60;
+	}
+	
+	public List<Pedido> pedidosPorMotoboy(Long idMotoboy){
+		List<Pedido> pedidos = pedidoRepository.findByMotoboyId(idMotoboy);
+		return pedidos;
+	}
+	
+	public List<Pedido> pedidosPorEstabelecimento(Long idEstabelecimento){
+		List<Pedido> pedidos = pedidoRepository.findByEstabelecimentoId(idEstabelecimento);
+		return pedidos;
 	}
 }

@@ -38,7 +38,7 @@ public class RouteRestauranteMotoboyResource {
         Motoboy motoboy =  motoboyService.findById(idMotoboy);
         String cordenadasDestino = motoboy.getLongitude()+","+ motoboy.getLatitude();
 
-        Rotas obJectRotas = findRoutesAndTimeService.buscarDistanciaTempo(coordenadasOrigem, cordenadasDestino);
+        Rotas obJectRotas = FindRotasAndTimeAPI.buscarDistanciaTempo(coordenadasOrigem, cordenadasDestino);
         System.out.println("Rota restaurente ao motoboy: " + obJectRotas);
 
         return ResponseEntity.ok(obJectRotas);

@@ -2,7 +2,6 @@ package br.com.mapfood.resources;
 
 import java.util.List;
 
-import com.google.maps.model.DirectionsStep;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.google.maps.model.DirectionsStep;
 
 import br.com.mapfood.service.PedidoService;
 import br.com.mapfood.domain.Pedido;
@@ -57,8 +58,20 @@ public class PedidoResource {
     }
 
     @ApiOperation("Organizar Entregas")
-    @GetMapping(value="/montarRoteiro")
+    @PostMapping(value="/montarRoteiro")
     public ResponseEntity<List<Pedido>> montarRoteiro(@RequestBody List<Long> idsPedido){
         return ResponseEntity.ok().body(pedidoService.montarRoteiro(idsPedido));
+    }
+    
+    @ApiOperation("Retorna os pedidos atendidos por um determinado motoboy")
+    @GetMapping(value="/pedidoPorMotoboy/{idMotoboy}")
+    public ResponseEntity<List<Pedido>> pedidoPorMotoboy(@PathVariable Long idMotoboy){
+        return ResponseEntity.ok().body(pedidoService.pedidosPorMotoboy(idMotoboy));
+    }
+    
+    @ApiOperation("Retorna os pedidos de um determinado estabelecimento")
+    @GetMapping(value="/pedidoPorEstabelecimento/{idEstabelecimento}")
+    public ResponseEntity<List<Pedido>> pedidoPorEstabelecimento(@PathVariable Long idEstabelecimento){
+        return ResponseEntity.ok().body(pedidoService.pedidosPorEstabelecimento(idEstabelecimento));
     }
 }

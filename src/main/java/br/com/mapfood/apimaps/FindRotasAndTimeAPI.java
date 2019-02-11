@@ -1,11 +1,17 @@
 package br.com.mapfood.apimaps;
 
 import br.com.mapfood.domain.Rotas;
+import org.springframework.stereotype.Service;
+
 import com.google.maps.DirectionsApi;
 import com.google.maps.DistanceMatrixApi;
 import com.google.maps.GeoApiContext;
-import com.google.maps.model.*;
-import org.springframework.stereotype.Service;
+import com.google.maps.model.DirectionsResult;
+import com.google.maps.model.DirectionsStep;
+import com.google.maps.model.DistanceMatrix;
+import com.google.maps.model.DistanceMatrixElement;
+import com.google.maps.model.LatLng;
+import com.google.maps.model.Unit;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
@@ -40,7 +46,8 @@ public class FindRotasAndTimeAPI {
 
         DistanceMatrixElement rotaMatrix = matrix.rows[0].elements[0];
 
-        return new Rotas().builder()
+        new Rotas();
+		return Rotas.builder()
                     .distancia(rotaMatrix.distance.humanReadable)
                     .distanciaMetros(rotaMatrix.distance.inMeters)
                     .tempoHorasMinutos(rotaMatrix.duration.humanReadable)

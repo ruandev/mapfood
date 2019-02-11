@@ -33,4 +33,5 @@ public class MotoboyResource {
         return ResponseEntity.ok().body(motoboy);
     }
 
+ 
 }

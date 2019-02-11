@@ -59,7 +59,8 @@ public class MotoboyService {
                     Double.parseDouble(motoboy.getLatitude()),
                     Double.parseDouble(motoboy.getLongitude()));
 
-            motoboysComDistancia.add(new Motoboy().builder()
+            new Motoboy();
+			motoboysComDistancia.add(Motoboy.builder()
                     .id(motoboy.getId())
                     .distanciaParaEstabelecimento(distanciaMotoBoy)
                     .latitude(motoboy.getLatitude())

@@ -35,7 +35,7 @@ public class CompararProdutoEstabelecimento {
 			}
 		}
 	
-		return (List<ProdutosEstabelecimento>) novoListProduto;
+		return novoListProduto;
 	}
 	
 }

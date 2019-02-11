@@ -40,7 +40,7 @@ public class RouteClienteRestauranteResource {
         Estabelecimento estabelecimento =  estabelecimentoService.findById(idEstabelecimento);
         String coordenadasDestino = estabelecimento.getLongitude() +","+ estabelecimento.getLatitude() ;
 
-        Rotas obJectRotas = findRoutesAndTimeService.buscarDistanciaTempo(coodenadasOrigem, coordenadasDestino);
+        Rotas obJectRotas = FindRotasAndTimeAPI.buscarDistanciaTempo(coodenadasOrigem, coordenadasDestino);
         System.out.println("Rota de entrega entre cliente e restaurente: " + obJectRotas);
 
         return ResponseEntity.ok(obJectRotas);

@@ -36,6 +36,8 @@ public class Pedido implements Serializable {
 
 	private Long tempoExpectativaEntrega;
 	
+	private Long distanciaMetros;
+	
 	private EstadoDoPedido statusPedido;	
 	
 	@OneToMany(mappedBy="pedido", cascade=CascadeType.ALL)

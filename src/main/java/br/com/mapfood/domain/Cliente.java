@@ -3,8 +3,6 @@ package br.com.mapfood.domain;
 import lombok.*;
 
 import java.io.Serializable;
-import java.util.Objects;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
