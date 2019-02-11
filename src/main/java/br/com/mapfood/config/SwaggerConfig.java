@@ -44,7 +44,7 @@ public class SwaggerConfig  {
                 .globalResponseMessage(RequestMethod.DELETE, Arrays.asList(m204del, m403, m404, m500))
 
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("br.com.mapfood.resources"))
+                .apis(RequestHandlerSelectors.basePackage("br.com.mapfood.controller"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo());
