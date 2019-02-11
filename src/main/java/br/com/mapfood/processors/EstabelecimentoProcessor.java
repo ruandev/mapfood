@@ -20,17 +20,14 @@ public class EstabelecimentoProcessor {
         List<Estabelecimento> listEstabelecimentos = new ArrayList<>();
 
         ClassLoader classLoader = new MapfoodApplication().getClass().getClassLoader();
-        //Create the CSVFormat object
+
         CSVFormat format = CSVFormat.DEFAULT.withHeader().withDelimiter(',');
 
-        //initialize the CSVParser object
         try (CSVParser parser = new CSVParser(new FileReader(classLoader.getResource("filesCsv/estabelecimento-por-municipio.csv").getFile()), format)) {
             for (CSVRecord record : parser) {
                 Estabelecimento estabelecimento = montarEstabelecimento(record);
                 listEstabelecimentos.add(estabelecimento);
             }
-            //close the parser
-            parser.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

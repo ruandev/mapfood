@@ -20,17 +20,14 @@ public class ClienteProcessor {
         List<Cliente> listClientes = new ArrayList<>();
 
         ClassLoader classLoader = new MapfoodApplication().getClass().getClassLoader();
-        //Create the CSVFormat object
+
         CSVFormat format = CSVFormat.DEFAULT.withHeader().withDelimiter(',');
 
-        //initialize the CSVParser object
         try (CSVParser parser = new CSVParser(new FileReader(classLoader.getResource("filesCsv/clientes.csv").getFile()), format)) {
             for (CSVRecord record : parser) {
                 Cliente cliente = montarCliente(record);
                 listClientes.add(cliente);
             }
-            //close the parser
-            parser.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

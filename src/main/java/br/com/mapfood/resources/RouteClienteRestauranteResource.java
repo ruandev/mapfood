@@ -1,6 +1,6 @@
 package br.com.mapfood.resources;
 
-import br.com.mapfood.apimaps.FindRotasAndTimeAPI;
+import br.com.mapfood.apimaps.GMapsMatrixAPI;
 import br.com.mapfood.service.ClienteService;
 import br.com.mapfood.service.EstabelecimentoService;
 import br.com.mapfood.domain.Cliente;
@@ -27,7 +27,7 @@ public class RouteClienteRestauranteResource {
     private EstabelecimentoService estabelecimentoService;
 
     @Autowired
-    private FindRotasAndTimeAPI findRoutesAndTimeService;
+    private GMapsMatrixAPI findRoutesAndTimeService;
 
     @ApiOperation(value = "Retorna tempo e distancia entre cliente e restaurante")
     @GetMapping

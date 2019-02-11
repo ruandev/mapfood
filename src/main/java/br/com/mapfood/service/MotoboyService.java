@@ -1,6 +1,6 @@
 package br.com.mapfood.service;
 
-import br.com.mapfood.apimaps.FindRotasAndTimeAPI;
+import br.com.mapfood.apimaps.GMapsMatrixAPI;
 import br.com.mapfood.domain.Estabelecimento;
 import br.com.mapfood.domain.Motoboy;
 import br.com.mapfood.domain.Pedido;
@@ -75,7 +75,7 @@ public class MotoboyService {
 
         for (Motoboy motoboy : motoboysProximos) {
             cordenadasDestino = motoboy.getLongitude() + "," + motoboy.getLatitude();
-            Rotas rota = FindRotasAndTimeAPI.buscarDistanciaTempo(cordenadasOrigem, cordenadasDestino);
+            Rotas rota = GMapsMatrixAPI.buscarDistanciaTempo(cordenadasOrigem, cordenadasDestino);
             motoboy.setDistanciaParaEstabelecimento(rota.getDistanciaMetros());
             motoboyRotasGoogle.add(motoboy);
         }

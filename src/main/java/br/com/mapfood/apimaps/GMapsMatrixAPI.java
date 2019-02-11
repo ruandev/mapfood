@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class FindRotasAndTimeAPI {
+public class GMapsMatrixAPI {
 
     private final static String API_KEY = "AIzaSyDHQu5G007T8-ANcovnWyGIZrQ6r9DCssk";
 
